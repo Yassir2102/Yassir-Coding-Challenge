@@ -26,8 +26,11 @@ jobs:
     # Step 3: Install Chrome and Chromedriver
     - name: Install Chrome and Chromedriver
       run: |
+        # Add Google Chrome repository and install Chrome
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
         sudo apt-get update
-        sudo apt-get install -y chromium-browser
+        sudo apt-get install -y google-chrome-stable
         sudo apt-get install -y chromium-chromedriver
 
     # Step 4: Install dependencies (Robot Framework and libraries)
