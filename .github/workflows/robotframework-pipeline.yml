@@ -1,0 +1,40 @@
+name: Run Robot Framework Tests
+
+# Triggers the workflow on push or pull request to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Define the jobs that will be run
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    # Step 3: Install dependencies (Robot Framework and any libraries you use)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install robotframework
+        # If you use other libraries, install them here
+        # pip install robotframework-seleniumlibrary
+
+    # Step 4: Run Robot Framework tests
+    - name: Run Robot Framework tests
+      run: |
+        robot tests/
+      # Adjust the path if your test scripts are in another directory
