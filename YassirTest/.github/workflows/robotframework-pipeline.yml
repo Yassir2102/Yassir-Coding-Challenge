@@ -40,4 +40,4 @@ jobs:
     # Step 5: Run Robot Framework tests
     - name: Run Robot Framework tests
       run: |
-        robot -d results tests/HRM.robot
+        robot -d results YassirTest/Tests/HRM.robot
