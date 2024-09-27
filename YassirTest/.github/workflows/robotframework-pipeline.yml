@@ -1,6 +1,5 @@
 name: Run Robot Framework Tests
 
-# Triggers the workflow on push or pull request to the main branch
 on:
   push:
     branches:
@@ -9,7 +8,6 @@ on:
     branches:
       - main
 
-# Define the jobs that will be run
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -25,16 +23,21 @@ jobs:
       with:
         python-version: '3.x'
 
-    # Step 3: Install dependencies (Robot Framework and any libraries you use)
+    # Step 3: Install Chrome and Chromedriver
+    - name: Install Chrome and Chromedriver
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser
+        sudo apt-get install -y chromium-chromedriver
+
+    # Step 4: Install dependencies (Robot Framework and libraries)
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install robotframework
-        # If you use other libraries, install them here
-        # pip install robotframework-seleniumlibrary
+        pip install robotframework-seleniumlibrary
 
-    # Step 4: Run Robot Framework tests
+    # Step 5: Run Robot Framework tests
     - name: Run Robot Framework tests
       run: |
-        robot tests/
-      # Adjust the path if your test scripts are in another directory
+        robot -d results tests/HRM.robot
